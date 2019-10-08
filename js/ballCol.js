@@ -39,7 +39,7 @@ window.onload = function () {
             ball.x += ball.vx;
             ball.y += ball.vy;
 
-            // Collision right wall
+            //  ----- Clasroom stuff ------------------
             if (ball.x > stageWidth - ball.r) {
                 ball.x = stageWidth - ball.r;
                 ball.vx *= -1;
@@ -60,6 +60,7 @@ window.onload = function () {
                 ball.vy *= bounce;
             }
 
+            // ------------ Rules for colliding with the mosue -------------------------------------------
             if ((msX > (ball.x - 60) && msX < ball.x) && (msY > (ball.y - 60) && msY < ball.y)) {
                 ball.vx += 0.07;
                 ball.vy += 0.07;
@@ -77,24 +78,38 @@ window.onload = function () {
                 ball.vx -= 0.07;
                 ball.vy += 0.07;
             }
+            //----------- end ---------------------------------------------------------------------
 
+            //------------------------- Circle collision ------------------------------------------
+            /* nested loop that compares currently selected ball in ball object 
+            to all the other balls in the screen*/
             firstBall = ballsOnScreen[i];
             currentCol = 0;
             for (z = 0; z < ballsOnScreen.length; z++) {
                 secondBall = ballsOnScreen[z];
+                // makes sure that the second sellected ball doesnt match the ball selected earlier
                 if (firstBall != secondBall) {
 
+                    // using pythagoras finds the distance^2 between two objects (hypotenuse)
                     var distanceSqr = Math.pow(firstBall.x - secondBall.x, 2) + Math.pow(firstBall.y - secondBall.y, 2);
 
+                    // checks if the user have enabled the collision (if check box ticked)
                     var colisionOn = document.getElementById("collisionCheck").checked;
+                    
                     if (!colisionOn) {
+                        // if sum of ball radiuses > the distance between them that means the balls are colliding 
                         if (distanceSqr < Math.pow(firstBall.r + secondBall.r, 2)) {
+                            //changes the induvidual object property to colliding 
                             firstBall.colliding = true;
+                            // counts how many induvidual collisions .this ball had
                             currentCol++;
                         }
+                        // IF collisions not ticked in the check box run this code
                     } else {
-
+                        // if sum of ball radiuses > the distance between them that means the balls are colliding 
                         if (distanceSqr < Math.pow(firstBall.r + secondBall.r, 2)) {
+                            
+                            //same stuff from classroom just inverts the velocities when colliding
                             firstBall.vx *= -1;
                             firstBall.vy *= -1;
                             firstBall.x += firstBall.vx;
@@ -110,16 +125,22 @@ window.onload = function () {
                 }
             }
 
+            /* if the last sellected ball had 0 collisions then the 
+            this.objects property set to not colliding */ 
             if (currentCol < 1) {
                 firstBall.colliding = false;
             }
 
+            // ----------------------- End of circle collision --------------------------------------
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
+        // renders loop that draws everything 
         for (i = 0; i < ballsOnScreen.length; i++) {
             ball = ballsOnScreen[i];
-
+            
+            //if ball colliding remove fill color
             if (ball.colliding) {
                 ctx.fillStyle = "rgba(0,0,0,0)";
             } else {
