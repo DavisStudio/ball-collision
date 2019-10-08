@@ -24,7 +24,7 @@ window.onload = function () {
     var ballsInCorner;
 
     for (var i = 0; i < 10; i++) {
-        var ball = makeBall(Math.random() * stageWidth, Math.random() * stageHeight, Math.random() * 60 + 10, getRandomColor(), 1, Math.random() * 7, Math.random() * 7);
+        var ball = makeBall(Math.random() * stageWidth, Math.random() * stageHeight, Math.random() * 40 + 5, getRandomColor(), 1, Math.random() * 7, Math.random() * 7);
         ballsOnScreen.push(ball);
     }
 
@@ -60,24 +60,20 @@ window.onload = function () {
                 ball.vy *= bounce;
             }
 
-            if((msX > (ball.x - 60) && msX < ball.x) && (msY > (ball.y - 60) && msY < ball.y)) 
-            {
+            if ((msX > (ball.x - 60) && msX < ball.x) && (msY > (ball.y - 60) && msY < ball.y)) {
                 ball.vx += 0.07;
                 ball.vy += 0.07;
-            } 
-            else if((msX < (ball.x + 60) && msX > ball.x) && (msY < (ball.y + 60) && msY > ball.y))
-            {
+            }
+            else if ((msX < (ball.x + 60) && msX > ball.x) && (msY < (ball.y + 60) && msY > ball.y)) {
                 ball.vx -= 0.07;
                 ball.vy -= 0.07;
             }
 
-            if((msX > (ball.x - 60) && msX < ball.x) && (msY < (ball.y + 60) && msY > ball.y)) 
-            {
+            if ((msX > (ball.x - 60) && msX < ball.x) && (msY < (ball.y + 60) && msY > ball.y)) {
                 ball.vx += 0.07;
                 ball.vy -= 0.07;
-            } 
-            else if((msX < (ball.x + 60) && msX > ball.x) && (msY > (ball.y - 60) && msY < ball.y))
-            {
+            }
+            else if ((msX < (ball.x + 60) && msX > ball.x) && (msY > (ball.y - 60) && msY < ball.y)) {
                 ball.vx -= 0.07;
                 ball.vy += 0.07;
             }
@@ -90,15 +86,31 @@ window.onload = function () {
 
                     var distanceSqr = Math.pow(firstBall.x - secondBall.x, 2) + Math.pow(firstBall.y - secondBall.y, 2);
 
-                    if (distanceSqr < Math.pow(firstBall.r + secondBall.r, 2)) {
-                        firstBall.colliding = true;
-                        currentCol++;
+                    var colisionOn = document.getElementById("collisionCheck").checked;
+                    if (!colisionOn) {
+                        if (distanceSqr < Math.pow(firstBall.r + secondBall.r, 2)) {
+                            firstBall.colliding = true;
+                            currentCol++;
+                        }
+                    } else {
+
+                        if (distanceSqr < Math.pow(firstBall.r + secondBall.r, 2)) {
+                            firstBall.vx *= -1;
+                            firstBall.vy *= -1;
+                            firstBall.x += firstBall.vx;
+                            firstBall.y += firstBall.vy;
+
+                            secondBall.vx *= -1;
+                            secondBall.vy *= -1;
+                            secondBall.x += secondBall.vx;
+                            secondBall.y += secondBall.vy;
+                        }
                     }
+
                 }
             }
-            
-            if(currentCol < 1)
-            {
+
+            if (currentCol < 1) {
                 firstBall.colliding = false;
             }
 

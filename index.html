@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Animation Study</title>
+    <title>Ball Collision</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+
     <style>
         *{margin:0;
           padding:0;
@@ -24,15 +27,25 @@
 
         p
         {
+            font-family: 'Nunito', sans-serif;
             font-size: 38px;
             color: white;
         }
+
+    #collisionCheck
+    {
+        color: white;
+        margin-bottom: 15px; 
+        width: 50px;
+        height: 50px;
+    }
 
     </style>
     <script src="js/ballCol.js"></script>
 </head>
 <body>
-    <p id="ballsInCorner">Balls in the corner: </p>
+    <p>Ball collision</p>
+    <input type="checkbox" id="collisionCheck">
     <canvas id="stage" width="600" height="600"></canvas>
 </body>
 </html>
