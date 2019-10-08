@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Animation Study</title>
+    <style>
+        *{margin:0;
+          padding:0;
+          background-color:#111111;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        canvas{
+            border: 1px solid white;
+            width: 600px;
+            height: 600px;
+        }
+
+        p
+        {
+            font-size: 38px;
+            color: white;
+        }
+
+    </style>
+    <script src="js/ballCol.js"></script>
+</head>
+<body>
+    <p id="ballsInCorner">Balls in the corner: </p>
+    <canvas id="stage" width="600" height="600"></canvas>
+</body>
+</html>
