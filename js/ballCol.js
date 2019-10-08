@@ -186,7 +186,7 @@ window.onload = function () {
     }
 
     function onMouseUp() {
-        console.log("bb");
+        console.log("b");
     }
 
     function onMouseDown() {
